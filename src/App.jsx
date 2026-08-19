@@ -97,7 +97,7 @@ function App() {
 
   return (
 
-    <BrowserRouter>
+    <BrowserRouter basename="/inkpulse">
 
       <Suspense
         fallback={
@@ -176,7 +176,9 @@ function App() {
 
           <Route
             path="/analytics/insights"
-            element={<Insight />}
+            element={
+              <Insight />
+            }
           />
 
 
