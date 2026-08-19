@@ -35,7 +35,7 @@ jobs:
         run: npm run build
 	
       - name: Prepare GitHub Pages SPA fallback
-  	run: cp dist/index.html dist/404.html
+  	    run: cp dist/index.html dist/404.html
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
