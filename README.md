@@ -1,18 +1,32 @@
-# InkPulse — Content Intelligence & Reader Analytics Platform
+# InkPulse — Content Intelligence & Analytics Platform
 
-**InkPulse** is a full-stack content intelligence and reader analytics platform designed to help publishers, content teams, and digital media platforms understand how audiences discover, consume, and engage with content.
+**InkPulse** is a modern content intelligence and analytics platform designed to help publishers, writers, and content teams understand how readers discover, consume, and engage with digital content.
 
-The platform combines a modern **React analytics dashboard** with a **Django REST API** and a custom analytics engine to transform raw reader events into actionable content insights.
+The platform combines a **React-based analytics dashboard**, **Django REST API**, event tracking, audience analytics, engagement measurement, and content-performance insights into a unified system.
+
+🔗 **Live Dashboard:** https://shubham99557.github.io/inkpulse/
+🔗 **Backend API:** https://inkpulse.pythonanywhere.com/
 
 ---
 
-## 🚀 Live Demo
+## 🚀 Overview
 
-**Frontend:**
-https://shubham99557.github.io/inkpulse/
+Traditional page-view analytics often answer *"How many people visited?"* but provide limited insight into *how readers actually consumed the content*.
 
-**Backend API:**
-https://inkpulse.pythonanywhere.com/
+InkPulse focuses on deeper content intelligence by collecting and analyzing reader activity such as:
+
+* Page views
+* Unique readers
+* Reading activity
+* Scroll depth
+* Engagement interactions
+* Attention signals
+* Article-level performance
+* Audience behavior
+* Traffic and acquisition information
+* Content trends and insights
+
+The goal is to transform raw reader activity into **actionable content intelligence**.
 
 ---
 
@@ -20,213 +34,182 @@ https://inkpulse.pythonanywhere.com/
 
 ### 📊 Analytics Dashboard
 
-* Total article views
+A centralized dashboard provides an overview of content performance, including:
+
+* Total views
 * Unique readers
-* Engagement rate
 * Attention score
+* Engagement rate
 * Average reading time
-* Reader activity trends
-* Daily analytics visualization
-
-### 📰 Content Analytics
-
-* Article-level performance tracking
-* Top-performing content
-* Views and interactions
-* Topic-based analytics
-* Article performance comparison
-* Individual article analytics
-
-### 👥 Audience Intelligence
-
-* Reader activity analysis
-* Geographic information
-* Regional audience insights
-* Unique reader measurement
-* Session-based analysis
-
-### 🧠 Engagement & Attention
-
-InkPulse processes reader behavior to calculate custom content intelligence metrics including:
-
-* Engagement rate
-* Attention score
-* Reading depth
-* Reading time
-* Interaction activity
+* Reader activity
 * Content performance
 
-### 📈 Trend Analysis
+### 📈 Reader Activity
 
-The platform generates trend snapshots for articles using historical engagement and viewing activity.
+Track how readers interact with published content over time.
 
-### 💡 Content Insights
+The system can analyze:
 
-The Insights section converts analytics data into higher-level content intelligence to help identify:
+* Views
+* Reading sessions
+* Scroll behavior
+* Engagement interactions
+* Reading depth
+* Attention patterns
 
-* High-performing articles
-* Low-engagement content
-* Audience behavior patterns
-* Content opportunities
-* Emerging trends
+### 📰 Article Analytics
 
-### 🌐 Google Analytics Integration
+Analyze individual articles and compare content performance.
 
-InkPulse is integrated with **Google Analytics 4** for additional website-level measurement.
+Available metrics include:
 
-The platform tracks standard web analytics such as:
+* Article views
+* Interactions
+* Likes
+* Shares
+* Comments
+* Bookmarks
+* Attention score
+* Engagement performance
 
-* Page views
-* Active users
-* Traffic sources
-* Geographic information
-* User sessions
-* Website engagement
+### 👥 Audience Analytics
 
-GA4 Measurement ID:
+Understand the characteristics and behavior of your audience through collected analytics data.
 
-`G-JLXBT7HK0C`
+### 💡 Content Intelligence
+
+InkPulse is designed to move beyond basic traffic statistics by combining multiple behavioral signals to generate meaningful content insights.
 
 ---
 
-# 🏗️ System Architecture
+## 🔴 Google Analytics 4 Integration
+
+InkPulse is integrated with **Google Analytics 4 (GA4)** for website-level traffic measurement.
+
+The deployed application uses a Google Analytics measurement ID to send website activity to the configured GA4 web data stream.
+
+**Verified integration:**
+
+* Google Analytics tag successfully loads on the deployed website.
+* GA4 `page_view` events are being transmitted.
+* Requests to `google-analytics.com/g/collect` have been successfully observed.
+* The GA4 Realtime report has shown active users from the deployed website.
+* Google Analytics Realtime can be used to verify incoming website activity.
+
+GA4 Realtime is designed to show current website activity and can be used to verify that the Analytics measurement code is functioning correctly.
+
+> **Note:** Google Analytics and InkPulse's own analytics system serve different purposes. GA4 provides external website measurement, while InkPulse's backend processes application-specific event data and content intelligence.
+
+---
+
+## 🏗️ System Architecture
 
 ```text
                          ┌──────────────────────┐
-                         │      Reader/User     │
+                         │      User / Reader   │
                          └──────────┬───────────┘
                                     │
                                     ▼
                          ┌──────────────────────┐
                          │   React Frontend     │
-                         │   Vite + React       │
+                         │   GitHub Pages       │
                          └──────────┬───────────┘
                                     │
-                         REST API Requests
-                                    │
-                                    ▼
-                         ┌──────────────────────┐
-                         │   Django REST API    │
-                         │      Backend         │
-                         └──────────┬───────────┘
-                                    │
-                                    ▼
-                         ┌──────────────────────┐
-                         │   Event Processing   │
-                         │   Analytics Engine   │
-                         └──────────┬───────────┘
-                                    │
-                                    ▼
-                         ┌──────────────────────┐
-                         │      Database        │
-                         │       SQLite         │
-                         └──────────┬───────────┘
-                                    │
-                  ┌─────────────────┴─────────────────┐
-                  │                                   │
-                  ▼                                   ▼
-        ┌──────────────────┐                ┌──────────────────┐
-        │ Custom Analytics │                │   Google         │
-        │    Dashboard     │                │   Analytics 4    │
-        └──────────────────┘                └──────────────────┘
+                    ┌───────────────┴────────────────┐
+                    │                                │
+                    ▼                                ▼
+          ┌──────────────────┐            ┌──────────────────┐
+          │ InkPulse REST API│            │ Google Analytics │
+          │ Django / DRF     │            │       GA4        │
+          └────────┬─────────┘            └──────────────────┘
+                   │
+                   ▼
+          ┌──────────────────┐
+          │ Event Processing │
+          │ & Analytics      │
+          └────────┬─────────┘
+                   │
+                   ▼
+          ┌──────────────────┐
+          │ Content & Reader │
+          │ Intelligence     │
+          └──────────────────┘
 ```
 
 ---
 
-# 🛠️ Technology Stack
+## 🛠️ Technology Stack
 
-## Frontend
+### Frontend
 
-* **React**
-* **Vite**
-* **React Router**
-* **Axios**
-* **Recharts**
-* **Lucide React**
-* CSS / responsive UI
+* React
+* Vite
+* React Router
+* Axios
+* Recharts
+* Lucide React
+* CSS
 * GitHub Pages
 
-## Backend
+### Backend
 
-* **Python**
-* **Django**
-* **Django REST Framework**
-* Django CORS Headers
+* Python
+* Django
+* Django REST Framework
 * SQLite
+* Django CORS Headers
 * uWSGI
 
-## Analytics
+### Analytics
 
-* Custom event processing engine
+* Custom InkPulse event tracking
+* Reader activity tracking
 * Article analytics
-* Reader/session tracking
-* Engagement calculations
-* Attention scoring
-* Trend analysis
+* Audience analytics
+* Engagement analytics
 * Google Analytics 4
+* Google Tag / `gtag.js`
 
-## Deployment
+### Deployment
 
-| Component      | Platform           |
-| -------------- | ------------------ |
-| Frontend       | GitHub Pages       |
-| Backend        | PythonAnywhere     |
-| Database       | SQLite             |
-| Web Server     | uWSGI              |
-| Source Control | GitHub             |
-| Web Analytics  | Google Analytics 4 |
+* **Frontend:** GitHub Pages
+* **Backend:** PythonAnywhere
+* **Source Control:** Git & GitHub
+* **CI/CD:** GitHub Actions
 
 ---
 
-# 📁 Project Structure
+## 📁 Project Structure
 
 ```text
 inkpulse/
 │
 ├── frontend/
 │   ├── public/
-│   │   ├── 404.html
-│   │   ├── favicon.svg
-│   │   └── icons.svg
-│   │
 │   ├── src/
 │   │   ├── pages/
-│   │   │   ├── Dashboard.jsx
-│   │   │   ├── Articles.jsx
-│   │   │   ├── Audience.jsx
-│   │   │   ├── Engagement.jsx
-│   │   │   └── Insight.jsx
-│   │   │
 │   │   ├── services/
-│   │   │   └── api.js
-│   │   │
 │   │   ├── App.jsx
-│   │   ├── main.jsx
-│   │   └── index.css
-│   │
-│   ├── .github/
-│   │   └── workflows/
-│   │       └── deploy.yml
+│   │   └── main.jsx
 │   │
 │   ├── index.html
 │   ├── vite.config.js
-│   └── package.json
+│   ├── package.json
+│   └── .github/
+│       └── workflows/
+│           └── deploy.yml
 │
-└── backend/
+└── inkpulse-backend/
     ├── config/
     │   ├── settings.py
     │   ├── urls.py
-    │   ├── wsgi.py
-    │   └── ...
+    │   └── wsgi.py
     │
     ├── events/
     │   ├── models.py
-    │   ├── views.py
     │   ├── serializers.py
-    │   ├── urls.py
-    │   └── services/
-    │       ├── analytics_service.py
-    │       └── trend_service.py
+    │   ├── views.py
+    │   └── urls.py
     │
     ├── analytics/
     ├── trends/
@@ -235,268 +218,218 @@ inkpulse/
     ├── attention/
     │
     ├── manage.py
-    ├── requirements.txt
     └── db.sqlite3
 ```
 
 ---
 
-# 🔄 How InkPulse Works
+## 🔌 API Structure
 
-## 1. Reader Activity
+The backend exposes REST endpoints for event collection and analytics.
 
-A reader interacts with an article or website.
-
-Examples:
+### Event Tracking
 
 ```text
-Article View
-Scroll
-Reading
-Interaction
-Like
-Share
-Bookmark
-```
-
-## 2. Event Collection
-
-The React frontend sends reader events to the Django REST API.
-
-Example:
-
-```http
 POST /api/events/
 ```
 
-## 3. Event Processing
+Used to submit reader activity and application events.
 
-Django processes the raw event and associates it with:
-
-* Reader
-* Session
-* Article
-* Timestamp
-* Region
-* City
-* Event metadata
-
-## 4. Analytics Processing
-
-The analytics engine aggregates events into article-level metrics.
-
-Examples:
+### Analytics Summary
 
 ```text
-Total Views
-Unique Readers
-Engagement Rate
-Attention Score
-Reading Time
-Reading Depth
-```
-
-## 5. Trend Generation
-
-InkPulse generates trend snapshots to measure how article performance changes over time.
-
-## 6. Dashboard Visualization
-
-The React dashboard retrieves processed analytics through REST APIs and visualizes them using charts and KPI cards.
-
----
-
-# 🔌 API Endpoints
-
-## Event Tracking
-
-```http
-POST /api/events/
-```
-
-Used to ingest reader activity events.
-
----
-
-## Analytics Summary
-
-```http
 GET /api/events/analytics/summary/
 ```
 
-Returns high-level analytics such as:
+Provides high-level analytics for the dashboard.
 
-* Total views
-* Unique readers
-* Engagement
-* Attention
-* Reading metrics
+### Time-Series Analytics
 
----
-
-## Article Analytics
-
-```http
-GET /api/events/analytics/articles/
-```
-
-Returns analytics for articles.
-
-Supports filtering and ordering.
-
----
-
-## Single Article Analytics
-
-```http
-GET /api/events/analytics/articles/{article_id}/
-```
-
-Returns detailed analytics for an individual article.
-
----
-
-## Time-Series Analytics
-
-```http
+```text
 GET /api/events/analytics/timeseries/
 ```
 
-Provides daily analytics data for visualization.
+Provides analytics data over a selected time period.
 
-Example query:
+### Article Analytics
 
-```http
-GET /api/events/analytics/timeseries/?days=7
+```text
+GET /api/events/analytics/articles/
 ```
 
----
+Returns article-level performance data.
 
-## Audience Analytics
+### Individual Article Analytics
 
-```http
+```text
+GET /api/events/analytics/articles/<article_id>/
+```
+
+Provides detailed analytics for a specific article.
+
+### Audience Analytics
+
+```text
 GET /api/events/analytics/audience/
 ```
 
-Provides audience-level analytics.
+Provides audience-related analytics.
 
----
+### Engagement Analytics
 
-## Engagement Analytics
-
-```http
+```text
 GET /api/events/analytics/engagement/
 ```
 
-Provides reader engagement metrics.
+Provides reader engagement information.
 
----
+### Content Insights
 
-## Content Insights
-
-```http
+```text
 GET /api/events/analytics/insights/
 ```
 
-Provides higher-level content intelligence.
+Returns generated analytics insights.
 
 ---
 
-# 📊 Core Analytics Metrics
+## 🌐 Deployment
 
-### Total Views
+### Frontend
 
-Total number of recorded article view events.
+The React application is deployed using **GitHub Pages**.
 
-### Unique Readers
-
-Number of distinct readers associated with article activity.
-
-### Engagement Rate
-
-Measures the proportion of reader activity that results in meaningful interactions.
-
-### Attention Score
-
-A custom InkPulse metric representing the level of reader attention given to content.
-
-### Reading Depth
-
-Measures how far a reader progresses through content.
-
-### Reading Time
-
-Measures the amount of time associated with reader consumption.
-
-### Trend Score
-
-Combines content activity and performance indicators to estimate article momentum.
-
----
-
-# ☁️ Deployment
-
-## Frontend
-
-The React application is automatically deployed to GitHub Pages using GitHub Actions.
-
-Deployment workflow:
+Production URL:
 
 ```text
-Git Push
-   ↓
-GitHub Actions
-   ↓
-npm ci
-   ↓
-npm run build
-   ↓
-GitHub Pages artifact
-   ↓
-GitHub Pages deployment
+https://shubham99557.github.io/inkpulse/
 ```
 
-The frontend uses a Vite base path:
+The application uses Vite's production build system and GitHub Actions for automated deployment.
+
+Every push to the `main` branch can trigger the deployment workflow.
+
+### Backend
+
+The Django REST API is hosted on **PythonAnywhere**.
+
+Production backend:
 
 ```text
-/inkpulse/
+https://inkpulse.pythonanywhere.com/
 ```
 
-React Router is configured with the corresponding basename so that client-side routes work correctly on GitHub Pages.
-
----
-
-## Backend
-
-The Django REST API is deployed on PythonAnywhere using:
+The backend is configured with:
 
 ```text
-Python
-Django
-Virtual Environment
+DJANGO_SETTINGS_MODULE=config.settings
+```
+
+and served through:
+
+```text
 uWSGI
 ```
 
-Production WSGI configuration points to:
+---
+
+## 🔄 Data Flow
 
 ```text
-config.wsgi.application
+Reader opens content
+        │
+        ▼
+React Application
+        │
+        ├──────────────► Google Analytics 4
+        │
+        ▼
+InkPulse Event API
+        │
+        ▼
+Django Event Processing
+        │
+        ▼
+Analytics Processing
+        │
+        ├── Views
+        ├── Audience
+        ├── Engagement
+        ├── Reading Depth
+        ├── Attention
+        └── Content Insights
+        │
+        ▼
+React Analytics Dashboard
 ```
 
 ---
 
-# ⚙️ Local Development
+## 📊 Current Dashboard
 
-## Clone the repository
+The deployed dashboard currently provides:
+
+* Analytics overview
+* Reader activity charts
+* Attention trends
+* Engagement trends
+* Reading-depth visualization
+* Top-performing article
+* Article-level analytics
+* Audience analytics
+* Engagement analytics
+* Content insights
+
+---
+
+## 🔐 Configuration
+
+The frontend communicates with the production Django backend through Axios.
+
+Production API configuration:
+
+```javascript
+const api = axios.create({
+  baseURL: "https://inkpulse.pythonanywhere.com/api",
+});
+```
+
+The frontend is configured for GitHub Pages using:
+
+```javascript
+base: "/inkpulse/"
+```
+
+React Router uses the corresponding application basename:
+
+```javascript
+<BrowserRouter basename="/inkpulse">
+```
+
+This allows client-side routes such as:
+
+```text
+/inkpulse/analytics
+/inkpulse/analytics/articles
+/inkpulse/analytics/engagement
+/inkpulse/analytics/insights
+/inkpulse/audience
+```
+
+to work correctly on the deployed GitHub Pages application.
+
+---
+
+## 🚀 Local Development
+
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/shubham99557/inkpulse.git
 cd inkpulse
 ```
 
----
-
-# Frontend Setup
+### 2. Start the frontend
 
 ```bash
 cd frontend
@@ -504,34 +437,22 @@ npm install
 npm run dev
 ```
 
-The development server will normally run at:
+The Vite development server will provide a local development URL.
 
-```text
-http://localhost:5173
-```
-
----
-
-# Backend Setup
-
-Create and activate a virtual environment:
+### 3. Start the backend
 
 ```bash
-cd backend
+cd inkpulse-backend
 
 python -m venv venv
 ```
 
-### Windows
+Activate the virtual environment.
+
+Windows:
 
 ```powershell
 venv\Scripts\activate
-```
-
-### Linux/macOS
-
-```bash
-source venv/bin/activate
 ```
 
 Install dependencies:
@@ -552,133 +473,105 @@ Start Django:
 python manage.py runserver
 ```
 
-Backend:
-
-```text
-http://127.0.0.1:8000
-```
-
 ---
 
-# 🔐 Configuration
+## 🧪 Production Build
 
-Production configuration should use environment variables for sensitive values such as:
-
-```text
-SECRET_KEY
-DATABASE_URL
-API_KEYS
-THIRD_PARTY_CREDENTIALS
-```
-
-Do not commit production secrets to GitHub.
-
-The Google Analytics Measurement ID is intended for frontend use and is not a secret credential.
-
----
-
-# 🧪 Testing
-
-Run Django system checks:
+To create a production frontend build:
 
 ```bash
-python manage.py check
-```
-
-Run backend tests:
-
-```bash
-python manage.py test
-```
-
-Build the frontend:
-
-```bash
-cd frontend
 npm run build
 ```
 
+To preview the production build locally:
+
+```bash
+npm run preview
+```
+
 ---
 
-# 📈 Google Analytics 4
+## 🔍 Analytics Verification
 
-InkPulse also uses Google Analytics 4 for standard website measurement.
+Google Analytics integration can be verified through:
 
-Measurement ID:
+**Google Analytics → Reports → Realtime**
+
+GA4's Realtime report is specifically intended to monitor activity as it happens and can be used to verify that the site's measurement code is working.
+
+The configured measurement ID is:
 
 ```text
 G-JLXBT7HK0C
 ```
 
-GA4 provides additional information such as:
-
-* Active users
-* Page views
-* Traffic sources
-* Geographic distribution
-* Sessions
-* Website engagement
-
-Custom InkPulse analytics remain independent from GA4 and are processed by the Django backend.
+The measurement ID identifies the GA4 web data stream that receives the website's measurement data.
 
 ---
 
-# 🔒 Privacy Considerations
+## 🎯 Project Goals
 
-InkPulse should avoid sending personally identifiable information to Google Analytics or other third-party analytics systems.
+InkPulse is intended to evolve into a complete **content intelligence platform** capable of helping publishers answer questions such as:
 
-Analytics events should use anonymous identifiers and aggregated behavioral information wherever possible.
+* Which articles attract the most readers?
+* Which articles retain attention?
+* Where do readers lose interest?
+* Which content generates the highest engagement?
+* How deeply are readers consuming content?
+* Which audiences are most engaged?
+* What content should be improved or promoted?
 
-Do not send:
-
-* Passwords
-* Authentication tokens
-* Email addresses
-* Phone numbers
-* Payment information
-* Private user content
-* Other personally identifiable information
-
-through analytics event parameters.
+The long-term objective is to turn raw reader behavior into **actionable editorial intelligence**.
 
 ---
 
-# 🚀 Future Improvements
+## 🗺️ Future Improvements
 
-Possible future development includes:
+Potential future development includes:
 
-* PostgreSQL migration
-* Advanced authentication and authorization
-* Automated database backups
-* Custom domain
-* Advanced reader segmentation
-* AI-powered content recommendations
-* Predictive content performance
-* Advanced anomaly detection
-* Real-time analytics
-* Automated reports
-* Email-based analytics reports
-* Advanced publisher dashboards
-* More granular custom GA4 events
-* Automated testing and monitoring
-
----
-
-# 🎯 Project Objective
-
-The primary goal of InkPulse is to move beyond simple page-view analytics and provide a deeper understanding of **how readers actually consume content**.
-
-Instead of asking only:
-
-> "How many people viewed this article?"
-
-InkPulse aims to answer:
-
-> "Who read it, how deeply did they engage with it, how much attention did they give it, and what does that tell us about the content?"
+* Advanced attention-score modeling
+* ML-based content performance prediction
+* Automated content recommendations
+* Reader segmentation
+* Trend detection
+* Anomaly detection
+* Real-time event streaming
+* Advanced audience dashboards
+* Custom analytics reports
+* Exportable analytics reports
+* Authentication and multi-user workspaces
+* Publisher/team management
+* Production-grade database infrastructure
+* Advanced notification and alerting systems
 
 ---
 
-# 👨‍💻 Developer
+## 📌 Project Status
+
+**Status: Production MVP**
+
+The current version includes:
+
+* ✅ React frontend
+* ✅ Django REST backend
+* ✅ Production deployment
+* ✅ GitHub Pages hosting
+* ✅ PythonAnywhere backend
+* ✅ REST API integration
+* ✅ Event tracking
+* ✅ Analytics dashboard
+* ✅ Article analytics
+* ✅ Audience analytics
+* ✅ Engagement analytics
+* ✅ Content insights
+* ✅ Google Analytics 4 integration
+* ✅ GA4 Realtime data verification
+* ✅ GitHub Actions deployment pipeline
+* ✅ GitHub Pages SPA routing
+
+---
+
+## 👨‍💻 Author
 
 **Shubham Raj**
 
@@ -688,21 +581,16 @@ Sikkim Manipal Institute of Technology
 GitHub:
 https://github.com/shubham99557
 
+LinkedIn:  
+https://www.linkedin.com/in/shubham-raj-313740285/
+
 Portfolio:
 https://shubham99557.github.io/portfolio/
 
 ---
 
-# 📄 License
+## 📄 License
 
-This project is currently maintained as a personal software engineering project.
+This project is currently intended as a personal/project portfolio application.
 
-A formal open-source license can be added if the project is intended for public redistribution.
-
----
-
-## ⭐ InkPulse
-
-**Content Intelligence. Reader Behavior. Actionable Insights.**
-
-Built with **React, Django, Python, REST APIs, and modern analytics engineering.**
+License and usage terms can be added when the project is prepared for public distribution.
